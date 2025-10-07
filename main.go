@@ -1,7 +1,25 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+
+	"github.com/akbarlucu/web-scrapper/utils"
+)
 
 func main() {
-	fmt.Println("hello world")
+	url := "https://www.tokopedia.com/search?q=gundam"
+
+	data, err := utils.ScrapedData(url, 10)
+	if err != nil {
+		log.Fatalf("Scrapping failed: %v", err)
+	}
+
+	for i, item := range data {
+		fmt.Printf("Product %d:\n", i+1)
+		fmt.Printf("Title %s:\n", item.Title)
+		fmt.Printf("Shop %s:\n", item.Shop)
+		fmt.Printf("Price %s:\n", item.Price)
+		fmt.Print("")
+	}
 }
