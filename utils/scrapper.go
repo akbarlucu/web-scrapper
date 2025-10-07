@@ -48,10 +48,12 @@ func ScrapeData(baseURL string, limit int) ([]ScrapedData, error) {
 		pageURL := fmt.Sprintf("%spage=%d", baseURL, nextPage)
 		err := scraper.Visit(pageURL)
 		if err != nil {
-			return nil, fmt.Errorf("Failed to visit URL: %W", err)
+			return nil, fmt.Errorf("failed to visit URL: %W", err)
 		}
 		nextPage++
 	}
+
+	scraper.Wait()
 
 	return results, nil
 }
